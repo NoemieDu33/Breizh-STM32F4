@@ -168,32 +168,72 @@ int main(void)
     Value = (Val * (511.9 - 102.4) / thr) + 102.4;
     PCA9685_SetPWM(Channel, 0, (uint16_t)Value);
   }
+
+  void PCA9685_StopServos(int * servos){
+	  for (int i=0; i<sizeof(servos); i++){
+		  PCA9685_SetServo(servos[i], 1600, 0);
+	  }
+  }
+  void avancer(int * servos, int t_ms, int spd){
+	  int speed_lft = (spd<1500)?1600+spd:3100;
+	  int speed_rgt = (spd<1500)?1600-spd:100;
+	  PCA9685_SetServo(servos[0], speed_lft, 0);
+	  PCA9685_SetServo(servos[1], speed_lft, 0);
+	  PCA9685_SetServo(servos[2], speed_rgt, 0);
+	  PCA9685_SetServo(servos[3], speed_rgt, 0);
+	  HAL_Delay(t_ms);
+	  PCA9685_StopServos(servos);
+  }
+
+  void reculer(int * servos, int t_ms, int spd){
+	  int speed_rgt = (spd<1500)?1600+spd:3100;
+	  int speed_lft = (spd<1500)?1600-spd:100;
+	  PCA9685_SetServo(servos[0], speed_lft, 0);
+	  PCA9685_SetServo(servos[1], speed_lft, 0);
+	  PCA9685_SetServo(servos[2], speed_rgt, 0);
+	  PCA9685_SetServo(servos[3], speed_rgt, 0);
+	  HAL_Delay(t_ms);
+	  PCA9685_StopServos(servos);
+  }
+
+  void droite(int * servos, int t_ms, int spd){
+	  int speed_rgt = (spd<1500)?1600+spd:3100;
+	  int speed_lft = speed_rgt;
+	  PCA9685_SetServo(servos[0], speed_lft, 0);
+	  PCA9685_SetServo(servos[1], speed_lft, 0);
+	  PCA9685_SetServo(servos[2], speed_rgt, 0);
+	  PCA9685_SetServo(servos[3], speed_rgt, 0);
+	  HAL_Delay(t_ms);
+	  PCA9685_StopServos(servos);
+  }
+
+  void gauche(int * servos, int t_ms, int spd){
+	  int speed_rgt = (spd<1500)?1600-spd:100;
+	  int speed_lft = speed_rgt;
+	  PCA9685_SetServo(servos[0], speed_lft, 0);
+	  PCA9685_SetServo(servos[1], speed_lft, 0);
+	  PCA9685_SetServo(servos[2], speed_rgt, 0);
+	  PCA9685_SetServo(servos[3], speed_rgt, 0);
+	  HAL_Delay(t_ms);
+	  PCA9685_StopServos(servos);
+  }
   /* USER CODE END 2 */
   PCA9685_Init(50);
   /* Infinite loop */
-  PCA9685_SetServo(0, 1600,0);
-  PCA9685_SetServo(1, 1600,0);
-  PCA9685_SetServo(2, 1600,0);
-  PCA9685_SetServo(3, 1600,0);
+  int servos[4] = {0,1,2,3}; //2 gauche puis 2 droite
+  PCA9685_StopServos(servos);
   /* USER CODE BEGIN WHILE */
+
+  // speed entre -1500 et 1500
   while (1)
   {
 
+	avancer(servos, 2000, 300);
+	HAL_Delay(1000);
+	reculer(servos, 500, 1000);
+	HAL_Delay(1000);
     /* USER CODE END WHILE */
-	  for (int i=12; i<16; i++){
-		  if (i==13 || i==14){
-			 PCA9685_SetServo(i, 0,0);
-		  }
-		  else {
-			  PCA9685_SetServo(i, 3000,0);
-		  }
 
-	  }
-	  HAL_Delay(1000);
-	  for (int i=12; i<16; i++){
-	      PCA9685_SetServo(i, 1600,0);
-	  }
-	  HAL_Delay(1000);
 
 
     /* USER CODE BEGIN 3 */
