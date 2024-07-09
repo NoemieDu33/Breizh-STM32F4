@@ -19,7 +19,7 @@
 > Capteurs de distance: Ultrason, IR ou ToF (VL53L0X)  
 > De quoi détecter les tuiles bleues / argentées (VL53L0X ou TCS230)  
 > Sous-processeurs (XIAO RP2040)  
-> Caméras (de quoi détecter vert, jaune, rouge, H, S, U - IA? Ou processing manuel?)
+> Caméras (de quoi détecter vert, jaune, rouge, H, S, U - IA? Ou processing manuel?)  
 > Alimentation pour les XIAO RP2040  
 > Alimentation pour la Nucleo-F446RE  
 
