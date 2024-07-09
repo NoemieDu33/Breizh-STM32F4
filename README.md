@@ -6,6 +6,7 @@
 > 1x PCA9685  
 > 5x 360° Servo Moteur  
 > 1x Bouton  
+> 1x Batterie 4.8v - 6v (4x AA 1.5V) pour le PCA9685
 
 ## Matériel commandé:
 > 1x Interrupteur pour allumer / éteindre le système  
@@ -16,10 +17,11 @@
 
 ## À acheter:
 > Capteurs de distance: Ultrason, IR ou ToF (VL53L0X)  
-> De quoi détecter les tuiles bleues / argentées  
+> De quoi détecter les tuiles bleues / argentées (VL53L0X ou TCS230)  
 > Sous-processeurs (XIAO RP2040)  
-> Caméras     
-> Batteries, alimentations, etc    
+> Caméras (de quoi détecter vert, jaune, rouge, H, S, U - IA? Ou processing manuel?)
+> Alimentation pour les XIAO RP2040
+> Alimentation pour la Nucleo-F446RE
 
 ## À fabriquer:
 > Châssis    
