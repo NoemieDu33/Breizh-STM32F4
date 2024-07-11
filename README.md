@@ -19,7 +19,7 @@
 > 1x Interrupteur pour allumer / éteindre le système  
 > Capteurs de distance: Ultrason, IR ou ToF (VL53L0X)  
 > De quoi détecter les tuiles bleues / argentées (VL53L0X ou TCS230)  
-> Sous-processeurs (XIAO RP2040)  
+> Sous-processeurs (XIAO RP2040, 5 max)  
 > Caméras (de quoi détecter vert, jaune, rouge, H, S, U - IA? Ou processing manuel?)  
 > Alimentation pour les XIAO RP2040  
 > Alimentation pour la Nucleo-F446RE  
@@ -32,7 +32,7 @@
 
 ## Matériel contrôlé par STM32-F446RE  
 > PCA9685 (5 Servos), I2C   
-> XIAO RP2040 (pas encore reçu)   
+> XIAO RP2040, UART   
  
 ## Matériel contrôlé par XIAO RP2040   
 > MPU6050 6 DoF, I2C    
