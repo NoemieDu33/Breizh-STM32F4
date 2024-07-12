@@ -1167,25 +1167,25 @@ int main(void)
  8000e2c:	2204      	movs	r2, #4
  8000e2e:	4823      	ldr	r0, [pc, #140]	@ (8000ebc <main+0xf0>)
  8000e30:	f003 fd1c 	bl	800486c <HAL_UART_Transmit>
-		if (angle<90 && angle>79){
+		if (angle<85 && angle>74){
  8000e34:	f897 3027 	ldrb.w	r3, [r7, #39]	@ 0x27
- 8000e38:	2b59      	cmp	r3, #89	@ 0x59
+ 8000e38:	2b54      	cmp	r3, #84	@ 0x54
  8000e3a:	d810      	bhi.n	8000e5e <main+0x92>
  8000e3c:	f897 3027 	ldrb.w	r3, [r7, #39]	@ 0x27
- 8000e40:	2b4f      	cmp	r3, #79	@ 0x4f
+ 8000e40:	2b4a      	cmp	r3, #74	@ 0x4a
  8000e42:	d90c      	bls.n	8000e5e <main+0x92>
-			avancer(servos, 333, 750);
+			avancer(servos, 333, 500);
  8000e44:	f107 0310 	add.w	r3, r7, #16
  8000e48:	f107 0220 	add.w	r2, r7, #32
  8000e4c:	4694      	mov	ip, r2
- 8000e4e:	f240 22ee 	movw	r2, #750	@ 0x2ee
+ 8000e4e:	f44f 72fa 	mov.w	r2, #500	@ 0x1f4
  8000e52:	f240 114d 	movw	r1, #333	@ 0x14d
  8000e56:	4618      	mov	r0, r3
  8000e58:	f000 f93a 	bl	80010d0 <avancer.3>
  8000e5c:	e02b      	b.n	8000eb6 <main+0xea>
-		} else if (angle>89){
+		} else if (angle>84){
  8000e5e:	f897 3027 	ldrb.w	r3, [r7, #39]	@ 0x27
- 8000e62:	2b59      	cmp	r3, #89	@ 0x59
+ 8000e62:	2b54      	cmp	r3, #84	@ 0x54
  8000e64:	d90c      	bls.n	8000e80 <main+0xb4>
 			avancer(servos, 333, 1500);
  8000e66:	f107 0310 	add.w	r3, r7, #16
@@ -1196,9 +1196,9 @@ int main(void)
  8000e78:	4618      	mov	r0, r3
  8000e7a:	f000 f929 	bl	80010d0 <avancer.3>
  8000e7e:	e7ca      	b.n	8000e16 <main+0x4a>
-		} else if (angle<80){
+		} else if (angle<75){
  8000e80:	f897 3027 	ldrb.w	r3, [r7, #39]	@ 0x27
- 8000e84:	2b4f      	cmp	r3, #79	@ 0x4f
+ 8000e84:	2b4a      	cmp	r3, #74	@ 0x4a
  8000e86:	d80b      	bhi.n	8000ea0 <main+0xd4>
 			avancer(servos, 333	, 200);
  8000e88:	f107 0310 	add.w	r3, r7, #16

@@ -251,11 +251,11 @@ int main(void)
 	    HAL_UART_Receive(&huart4, RXdata, 4, 100);
 		angle = RXdata[0];
 		HAL_UART_Transmit(&huart4, RXdata, 4, 100);
-		if (angle<90 && angle>79){
-			avancer(servos, 333, 750);
-		} else if (angle>89){
+		if (angle<85 && angle>74){
+			avancer(servos, 333, 500);
+		} else if (angle>84){
 			avancer(servos, 333, 1500);
-		} else if (angle<80){
+		} else if (angle<75){
 			avancer(servos, 333	, 200);
 		} else {
 		  PCA9685_StopServos(servos);
