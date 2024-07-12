@@ -46,6 +46,7 @@ I2C_HandleTypeDef hi2c1;
 
 TIM_HandleTypeDef htim2;
 
+UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
@@ -59,6 +60,7 @@ static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_UART4_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -74,6 +76,7 @@ static void MX_I2C1_Init(void);
 #define PCA9685_MODE1_SLEEP_BIT      4    // as in the datasheet page no 14/52
 #define PCA9685_MODE1_AI_BIT         5    // as in the datasheet page no 14/52
 #define PCA9685_MODE1_RESTART_BIT    7    // as in the datasheet page no 14/52
+
 
 /* USER CODE END 0 */
 
@@ -110,6 +113,7 @@ int main(void)
   MX_TIM2_Init();
   MX_ADC1_Init();
   MX_I2C1_Init();
+  MX_UART4_Init();
   /* USER CODE BEGIN 2 */
 
   void PCA9685_SetBit(uint8_t Register, uint8_t Bit, uint8_t Value)
@@ -175,6 +179,9 @@ int main(void)
 	  }
   }
   void avancer(int * servos, int t_ms, int spd){
+	  if (spd==0){
+		  PCA9685_StopServos(servos);
+	  }
 	  int speed_lft = (spd<1500)?1600+spd:3100;
 	  int speed_rgt = (spd<1500)?1600-spd:100;
 	  PCA9685_SetServo(servos[0], speed_lft, 0);
@@ -186,6 +193,9 @@ int main(void)
   }
 
   void reculer(int * servos, int t_ms, int spd){
+	  if (spd==0){
+		  PCA9685_StopServos(servos);
+	  }
 	  int speed_rgt = (spd<1500)?1600+spd:3100;
 	  int speed_lft = (spd<1500)?1600-spd:100;
 	  PCA9685_SetServo(servos[0], speed_lft, 0);
@@ -197,6 +207,9 @@ int main(void)
   }
 
   void droite(int * servos, int t_ms, int spd){
+	  if (spd==0){
+		  PCA9685_StopServos(servos);
+	  }
 	  int speed_rgt = (spd<1500)?1600+spd:3100;
 	  int speed_lft = speed_rgt;
 	  PCA9685_SetServo(servos[0], speed_lft, 0);
@@ -208,6 +221,9 @@ int main(void)
   }
 
   void gauche(int * servos, int t_ms, int spd){
+	  if (spd==0){
+		  PCA9685_StopServos(servos);
+	  }
 	  int speed_rgt = (spd<1500)?1600-spd:100;
 	  int speed_lft = speed_rgt;
 	  PCA9685_SetServo(servos[0], speed_lft, 0);
@@ -217,24 +233,41 @@ int main(void)
 	  HAL_Delay(t_ms);
 	  PCA9685_StopServos(servos);
   }
-  /* USER CODE END 2 */
+
   PCA9685_Init(50);
+
+  int servos[4] = {0,1,2,3};
+  uint8_t RXdata[10];
+  uint8_t angle = 80;
+
+  /* USER CODE END 2 */
+
   /* Infinite loop */
-  int servos[4] = {0,1,2,3}; //2 gauche puis 2 droite
-  PCA9685_StopServos(servos);
   /* USER CODE BEGIN WHILE */
 
   // speed entre -1500 et 1500
   while (1)
   {
+	    HAL_UART_Receive(&huart4, RXdata, 4, 100);
+		angle = RXdata[0];
+		HAL_UART_Transmit(&huart4, RXdata, 4, 100);
+		if (angle<90 && angle>79){
+			avancer(servos, 333, 750);
+		} else if (angle>89){
+			avancer(servos, 333, 1500);
+		} else if (angle<80){
+			avancer(servos, 333	, 200);
+		} else {
+		  PCA9685_StopServos(servos);
+		  HAL_Delay(200);
+	    }
 
-	avancer(servos, 2000, 300);
-	HAL_Delay(1000);
-	reculer(servos, 500, 1000);
-	HAL_Delay(1000);
+
+
+
+
+
     /* USER CODE END WHILE */
-
-
 
     /* USER CODE BEGIN 3 */
   }
@@ -416,6 +449,39 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * @brief UART4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_UART4_Init(void)
+{
+
+  /* USER CODE BEGIN UART4_Init 0 */
+
+  /* USER CODE END UART4_Init 0 */
+
+  /* USER CODE BEGIN UART4_Init 1 */
+
+  /* USER CODE END UART4_Init 1 */
+  huart4.Instance = UART4;
+  huart4.Init.BaudRate = 115200;
+  huart4.Init.WordLength = UART_WORDLENGTH_8B;
+  huart4.Init.StopBits = UART_STOPBITS_1;
+  huart4.Init.Parity = UART_PARITY_NONE;
+  huart4.Init.Mode = UART_MODE_TX_RX;
+  huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart4.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN UART4_Init 2 */
+
+  /* USER CODE END UART4_Init 2 */
 
 }
 
