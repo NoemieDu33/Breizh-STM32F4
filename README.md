@@ -9,17 +9,20 @@
 > 1x Bouton  
 > 1x Batterie 4.8v - 6v (4x AA 1.5V) pour le PCA9685
 > 1x Gyroscope & Accel MPU6050 DoF 6    
-> 1x XIAO RP2040  
+> 2x XIAO RP2040  
+> 4x VL53L0X  
+> 1x Ecran LCD GMG12864-06D ST7565  
+> 1x Grove AI Vision v2  
+> 1x Arducam RPi Camera 5MPx  
 
 ## Matériel commandé:  
-> 4x VL53L0X  
-> 1x Ecran LCD 12864-06D 128X64  
+(Rien)  
 
 ## À acheter:
 > 1x Interrupteur pour allumer / éteindre le système  
 > Capteurs de distance: Ultrason, IR ou ToF (VL53L0X)  
 > De quoi détecter les tuiles bleues / argentées (VL53L0X ou TCS230)  
-> Sous-processeurs (XIAO RP2040, 5 max)  
+> Sous-processeurs (XIAO RP2040, 4 max)  
 > Caméras (de quoi détecter vert, jaune, rouge, H, S, U - IA? Ou processing manuel?)  
 > Alimentation pour les XIAO RP2040  
 > Alimentation pour la Nucleo-F446RE  
