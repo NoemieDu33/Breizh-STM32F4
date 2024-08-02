@@ -47,6 +47,7 @@ I2C_HandleTypeDef hi2c1;
 TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart4;
+UART_HandleTypeDef huart5;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
@@ -61,6 +62,7 @@ static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_UART4_Init(void);
+static void MX_UART5_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -114,6 +116,7 @@ int main(void)
   MX_ADC1_Init();
   MX_I2C1_Init();
   MX_UART4_Init();
+  MX_UART5_Init();
   /* USER CODE BEGIN 2 */
 
   void PCA9685_SetBit(uint8_t Register, uint8_t Bit, uint8_t Value)
@@ -238,7 +241,8 @@ int main(void)
 
   int servos[4] = {0,1,2,3};
   uint8_t RXdata[10];
-  uint8_t angle = 80;
+  uint8_t angleY = 80;
+  uint8_t angleZ = 80;
 
   /* USER CODE END 2 */
 
@@ -248,19 +252,10 @@ int main(void)
   // speed entre -1500 et 1500
   while (1)
   {
+
 	    HAL_UART_Receive(&huart4, RXdata, 4, 100);
-		angle = RXdata[0];
 		HAL_UART_Transmit(&huart4, RXdata, 4, 100);
-		if (angle<85 && angle>74){
-			avancer(servos, 333, 500);
-		} else if (angle>84){
-			avancer(servos, 333, 1500);
-		} else if (angle<75){
-			avancer(servos, 333	, 200);
-		} else {
-		  PCA9685_StopServos(servos);
-		  HAL_Delay(200);
-	    }
+		HAL_UART_Transmit(&huart5, RXdata, 4, 100);
 
 
 
@@ -486,6 +481,39 @@ static void MX_UART4_Init(void)
 }
 
 /**
+  * @brief UART5 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_UART5_Init(void)
+{
+
+  /* USER CODE BEGIN UART5_Init 0 */
+
+  /* USER CODE END UART5_Init 0 */
+
+  /* USER CODE BEGIN UART5_Init 1 */
+
+  /* USER CODE END UART5_Init 1 */
+  huart5.Instance = UART5;
+  huart5.Init.BaudRate = 115200;
+  huart5.Init.WordLength = UART_WORDLENGTH_8B;
+  huart5.Init.StopBits = UART_STOPBITS_1;
+  huart5.Init.Parity = UART_PARITY_NONE;
+  huart5.Init.Mode = UART_MODE_TX_RX;
+  huart5.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart5.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart5) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN UART5_Init 2 */
+
+  /* USER CODE END UART5_Init 2 */
+
+}
+
+/**
   * @brief USART2 Initialization Function
   * @param None
   * @retval None
@@ -533,6 +561,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
