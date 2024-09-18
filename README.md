@@ -8,6 +8,7 @@
 > 1x Gyroscope & Accel MPU6050 DoF 6    
 > 2x XIAO RP2040  
 > 4x VL53L0X  
+> 1x TCS3200  
 > 1x Ecran LCD GMG12864-06D ST7565  
 > 1x Grove AI Vision v2  
 > 1x Raspberry Pi 4B  
@@ -21,12 +22,11 @@
 ## Matériel commandé:  
 (Rien)  
 
-## À acheter:
-> 1x Interrupteur pour allumer / éteindre le système  
-> Capteurs de distance: Ultrason, IR ou ToF (VL53L0X)  
-> De quoi détecter les tuiles bleues / argentées (VL53L0X ou TCS230)  
-> Sous-processeurs (XIAO RP2040, 4 max)   
+## À acheter: 
 > Alimentations  
+> Meilleurs Servos  
+> Plus de VL53L0X  
+> Plus de XIAO RP2040  
 
 ## À fabriquer:
 > Châssis    
