@@ -9,6 +9,7 @@
 > 2x XIAO RP2040  
 > 4x VL53L0X  
 > 1x TCS3200  
+> 1x TCA9548A  
 > 1x Ecran LCD GMG12864-06D ST7565  
 > 1x Grove AI Vision v2  
 > 1x Raspberry Pi 4B  
